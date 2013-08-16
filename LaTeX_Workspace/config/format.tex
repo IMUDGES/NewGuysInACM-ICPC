@@ -1,0 +1,31 @@
+%---------------------------设置字体-------------------------------
+\setmainfont{Times New Roman}	% 缺省字体
+\setCJKfamilyfont{song}{SimSun}	%宋体
+\setCJKfamilyfont{hei}{SimHei}		%黑体
+\setCJKfamilyfont{kai}{KaiTi}		%楷体
+\setCJKfamilyfont{fs}{FangSong}	%仿宋
+\setCJKfamilyfont{li}{STLiti}		%华文隶书
+\setCJKfamilyfont{yh}{MicrosoftYaHei}	%微软雅黑
+\setCJKfamilyfont{xingkai}{STXingkai}	%华文行楷
+\setCJKfamilyfont{xinwei}{STXinwei}		%华文新魏
+\setCJKfamilyfont{console}{YaHei-Consolas-Hybrid}	%雅黑控制台
+
+
+\newCJKfontfamily\song{SimSun}
+\newCJKfontfamily\hei{SimHei}
+\newCJKfontfamily\kai{KaiTi}
+\newCJKfontfamily\fs{FangSong}
+\newCJKfontfamily\li{STLiti}
+\newCJKfontfamily\yh{MicrosoftYaHei}
+\newCJKfontfamily\xingkai{STXingkai}
+\newCJKfontfamily\xinwei{STXinwei}
+\newCJKfontfamily\console{YaHei-Consolas-Hybrid}
+
+
+%---------------------------页眉页脚设置---------------
+
+\fancypagestyle{plain}
+\fancyhf{}					%清除页眉
+\fancyhead[RE]{\leftmark}		%偶数页右侧显示章名
+\fancyhead[LO]{\rightmark}	%奇数页左侧显示节名
+\fancyhead[LE,RO]{~\thepage~}	%偶数页左侧、奇数页右侧显示页码
