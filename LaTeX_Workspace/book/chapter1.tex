@@ -1,4 +1,4 @@
-\chapter{代码中窥C++}
+\chapter{码中一窥C++}
 
 \section{关于C++}
 
@@ -22,24 +22,39 @@
 在ACM/ICPC的比赛中，通常使用的编译器是GCC(GNU Complier Collection)。GCC是一个支持很多种语言的开源的编译器的集合。它可以安装在Windows（不推荐）和Linux等多种操作系统上。而在比赛中普遍使用的是安装了Linux操作系统和GCC编译器的开发环境，并且配置了某些IDE来让学生进行开发。
 关于IDE：对于Windows来说，我门推荐使用Dev-C++。对于Linux，我们推荐使用Code-Blocks。
 
+本章的行文基于“CART”步骤，即(C)ode, (A)nalyze, (R)esult, (T)ry。四步。
+
+Code是指展示代码，Analyze是针对代码分析其中的语法元素，Result是根据程序的运行结果来分析程序的逻辑，Try则是举一反三，完成与该代码相关的另一段代码的编写。
+
 \section{Hello IMUDGES!}
 其实吧，作为一名编程初学者，第一个编写的程序应该就是传说中的“Helloworld”。这个程序意图就是在屏幕上简简单单地打印出一个“Helloworld”的文字。目的是为了表示当前的开发环境没啥问题，可以继续工作了。
 
 但是我觉得一个Helloworld太简单了，各种书籍都把这个例子用烂了，那我在这里就用一个稍微复杂的例子来实现这个“Helloworld”吧！
 
-\begin{lstlisting}[language=C++,caption=Helloword升级版,label=code:helloworld]
-#include <iostream>
-using namespace std;
-int main(){
-	cout<<"a"<<endl;
-	return 0;
-	//comment
-}
+\subsection{Code}
+\lstinputlisting[language=C++,caption=Helloworld++,label=code:helloworld++]{codes/1-1/1-1.cpp}
 
-\end{lstlisting}
+\subsection{Analyze}
+代码\ref{code:helloworld++}是加强版的Helloword，所以我管它叫做Helloworld++。代码首先通过提示依次输入你的姓名和性别，再根据不同的性别输出不同的“问候语”。对它的部分解读如下：
+\begin{quote}
+\showremarks
+\end{quote}
+
+我们再来逐行精读这段代码。
+
+首先，程序的前两行中使用了“\#include<xxxxx>”。这部分内容叫做“预编译指令\footnote{也叫做预处理指令。}”。所谓预编译，就是指在编译之前要“告诉”编译器的“话”。编译器收到这些指令之后就会按照指令上的内容提前进行一些预处理。
+
+在C++中常见的预处理指令主要有“\#include”、“\#define”等。当然还有一些诸如“\#ifndef”等在本书中不是很常用的预处理指令。
+
+“\#include xxx”用来表明该段程序编译前应该包含哪些其他文件。由于操作系统会将一些常用的操作封装成函数库，并写在某些自带的文件中，所以当我们使用这些函数库的时候，一般都需要通过该命令将其包含。命令中的xxx则是用“<>”或者双引号括起来的文件名。用“<xxx>”则表示这个文件在系统的搜索路径下保存，一般是系统库。而用双引号扩起来的则表示这个文件跟当前程序代码文件存放在同一个文件夹。
+
+而“\#define A B”则是表示强行将B替换成A。也就是说在以后的代码中凡是出现过“B”的地方都将会无条件地被替换成“A”。在C语言\footnote{C++的前身，C++就是对C语言扩展而成的语言}时代，常常用这种方法来避免一些硬编码\footnote{即“直接将常数值分布在程序的各处”，这种硬编码导致的程序冗余性会让代码修改起来非常困难。}。例如有一个运算式频繁使用了PI=3.14这个数值。但是突然想要让PI=3.1415。这时候需要把所有的3.14替换成3.1415。但如果很早之前我们的程序就是用PI来表示这个值，在此时也就只需要将“\#define PI 3.14”改成“\#define PI 3.1415”即可。
+
+由于“\#define”是在“编译前”执行，所以它带来的开销不会在程序运行时体现出来，而且还能进行很多技巧性的操作。但是由于这种“技巧性”的操作稍有不慎就可能产生很麻烦的后果，所以不建议初学者滥用这种方法。而它所提供的功能可以通过类似但更加安全的方法实现。
 
 
+\subsection{Result}
+
+\subsection{Try}
 
 
-
-
