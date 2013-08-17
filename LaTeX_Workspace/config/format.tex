@@ -33,3 +33,56 @@
 \fancyhead[LE,RO]{~\thepage~}	%偶数页左侧、奇数页右侧显示页码
 
 }
+
+%---------------------------代码高亮设置---------------
+\lstdefinestyle{customc}{
+  numbers=left,
+  belowcaptionskip=1\baselineskip,
+  breaklines=true,
+  frame=shadowbox,
+  xleftmargin=\parindent,
+  showstringspaces=false,
+  basicstyle=\footnotesize\ttfamily,
+  keywordstyle=\bfseries\color{green!40!black},
+  commentstyle=\itshape\color{purple!40!black},
+  identifierstyle=\color{blue},
+  stringstyle=\color{orange},
+}
+
+\lstset{style=customc}
+
+\renewcommand{\lstlistingname}{代码}		%重定义Listing叫做“代码”
+
+%---------------------------代码注释标记---------------
+
+\newcounter{coderemarks}
+\setcounter{coderemarks}{1}
+\newcounter{codevar}
+\setcounter{codevar}{1}
+ 
+\newcommand{\circlemark}[1]{%
+\tikz\node[text=white,font=\sffamily\bfseries,inner sep=0.2mm,draw,circle,fill=black]{#1};}
+%
+\newcommand{\makeremark}[1]{%
+\circlemark{\arabic{coderemarks}}%
+\global \expandafter\def \csname codebox\the\value{coderemarks}\endcsname{#1}%
+\stepcounter{coderemarks}}
+%
+\newcommand{\showremarks}{%
+\begin{list}{\circlemark{\arabic{codevar}}} %
+{} %
+\whiledo{\value{codevar} < \value{coderemarks}}{ %
+\item \expandafter\csname codebox\the\value{codevar}\endcsname %
+\stepcounter{codevar}} %
+\end{list} %
+\setcounter{coderemarks}{1}%
+\setcounter{codevar}{1}%
+}
+
+\lstset{escapeinside=``}
+
+
+
+
+
+
