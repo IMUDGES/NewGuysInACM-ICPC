@@ -82,6 +82,12 @@
 \lstset{escapeinside={/*\#}{\#*/}}
 
 
+%------------处理不浮动的页面---------------
+\makeatletter 
+  \newcommand\figcaption{\def\@captype{figure}\caption} 
+  \newcommand\tabcaption{\def\@captype{table}\caption} 
+\makeatother
+
 
 
 

@@ -11,7 +11,8 @@ int main(){ /*#\makeremark{主函数}#*/
     char *name = (char*)malloc(sizeof(char)*trunk_size);
     
     /* 保存性别的字符串指针  */
-    char *sex_str = (char*)malloc(sizeof(char)*trunk_size);
+    char *sex_str;
+    sex_str = (char*)malloc(sizeof(char)*trunk_size);
 
     cout/*#\makeremark{标准输出流，在控制台程序下控制输出}#*/<<"  Who are you?"<<endl;
     cout<<">>";
@@ -20,9 +21,10 @@ int main(){ /*#\makeremark{主函数}#*/
     cout<<"  Are you a boy or girl?"<<endl;
     cout<<">>";
     cin>>sex_str;
-    if(!strcmp("boy",sex_str)){ //判断这里是"boy"还是"girl" 
+    if(!strcmp("boy",sex_str)/*#\makeremark{调用字符串比较函数}#*/){ //判断这里是"boy"还是"girl" 
         cout<<"OH! NO! We have a tons of boys!"<<endl/*#\makeremark{endl表示换行。cout、cin、endl等功能必须在usint namespace std；后才能使用}#*/;
     }else{
         cout<<"Hey! Welcome to IMUDGES!!!!!!"<<endl;
     }
+    return 0;/*#\makeremark{主函数的返回值}#*/
 }
