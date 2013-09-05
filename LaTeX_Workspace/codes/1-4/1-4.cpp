@@ -14,7 +14,7 @@ int main(){
     cout<<"int value of bool_b:"<<(int)bool_b<<endl;
     cout<<"int value of bool_c:"<<(int)bool_c<<endl;
 
-    bool_c = bool_c + 1;/*#\makeremark{布尔类型也是可以进行一些运算的！}#*/
+    bool_c = bool_c + 1;/*#\makeremark{布尔类型也是可以进行一些运算的！但此处的运算时经过隐含类型转换之后进行的}#*/
     cout<<"bool_c + 1 = "<<bool_c<<endl;
 
     bool_c = bool_c - 1;

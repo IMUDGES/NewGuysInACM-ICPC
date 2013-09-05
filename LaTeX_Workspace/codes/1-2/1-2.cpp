@@ -31,7 +31,7 @@ int main(){
     cout<<"Binary format of 'float_number' is: "<<bitset<sizeof(float)*8>((int &)float_number)<<endl;
    
     //测试类型转换
-    int convert_int = 1.2;/*#\makeremark{此处进行了隐式的类型转换。就是说在没有告知的情况下，赋值的数字发生了精度的变化。由于int类型的先天不足，所以当将等号右边的一系列运算完成后的结果转换成为int类型时，会将小数部分删掉（绝非四舍五入）。}#*/
+    int convert_int = 1.2;/*#\makeremark{此处进行了隐式强制类型转换。就是说在没有告知的情况下，赋值的数字发生了精度的变化。由于int类型的先天不足，所以当将等号右边的一系列运算完成后的结果转换成为int类型时，会将小数部分删掉（绝非四舍五入）。}#*/
     cout<<"'1.2' saved in an int variable is: "<<convert_int<<endl;
 
     float float_a=1.2;
@@ -41,10 +41,10 @@ int main(){
     float_c = float_a + float_b;
     cout<<"float_a + float_b = "<<float_c<<endl;
 
-    float_c = float_a + 1;
+    float_c = float_a + 1/*#\makeremark{此处进行了隐含类型转换。int类型的1会被自动转换成float类型}#*/;
     cout<<"float_a + 1 = "<<float_c<<endl;
 
-    float_c = float_a + (int)/*#\makeremark{在变量前放置一个用括号括起来的数据类型，这种操作叫做强制类型转换。所谓强制类型转换，即将某种类型的内容不顾精度的损失、强制将其转换成为特定类型。基本数据类型通常是可以转换的，但用户自定义的数据类型并不那么容易转换。由于这种转换时强制的，能够绕过编译器的一些限制，所以虽然它非常容易出错，但仍然非常的实用！}#*/float_b;
+    float_c = float_a + (int)/*#\makeremark{在变量前放置一个用括号括起来的数据类型，这种操作叫做显式强制类型转换。所谓显式强制类型转换，即由用户强制地、将某种类型的内容不顾精度的损失而将其转换成为特定类型。基本数据类型通常是可以转换的，但用户自定义的数据类型并不那么容易转换。由于这种转换是强制的，能够绕过编译器的一些限制，所以虽然它非常容易出错，但仍然非常的实用！}#*/float_b;
     cout<<"float_a + (int)float_b = "<<float_c<<endl;
     return 0;
 }
