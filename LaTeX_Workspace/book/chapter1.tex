@@ -424,8 +424,9 @@ C++中用来表示“二值化”逻辑值的类型就叫做\emph{布尔类型}�
 \lstinputlisting[language=C++,caption=布尔类型,label=code:BoolType]{codes/1-4/1-4.cpp}
 
 \subsection{Analyze}
+
+这段代码主要是进行与布尔类型有关的操作，下面是代码中的部分注解：
 \showremarks
-这段代码主要是进行与布尔类型有关的操作。
 
 从代码中我们了解到bool类型可以接受“true”、“false”甚至是数字等等作为值。在代码的第6行可以看到bool\_b被赋值为2，但在第14行输出的时候，发现bool\_b的输出值实际上是1。这是因为在赋值的时候，系统进行“隐含类型转换”——将数字2转换为bool类型的true，而这个true实际上是数字“1”，再将这个1赋值给bool\_b。
 
@@ -473,9 +474,10 @@ C++中用来表示“二值化”逻辑值的类型就叫做\emph{布尔类型}�
 \lstinputlisting[language=C++,caption=运算符与表达式,label=code:OperatorAndExpression]{codes/1-5/1-5.cpp}
 
 \subsection{Analyze}
-\showremarks
 
-在代码\ref{code:OperatorAndExpression}中，罗列了很多有关表达式的操作。
+
+在代码\ref{code:OperatorAndExpression}中，罗列了很多有关表达式的操作，下面是代码中的一些注解：
+\showremarks
 
 第5行是前面曾经提到过的基本的赋值表达式。等号右边会进行计算，并将最终的计算结果以变量a类型，即int的方式\footnote{如果不是int则转换到int类型}赋值给a。
 
@@ -531,13 +533,180 @@ C++中用来表示“二值化”逻辑值的类型就叫做\emph{布尔类型}�
 
 一般来说，在程序中语句逐行罗列，程序也依次执行。这一种上下两条语句紧密相连的结构被成为“顺序结构”。除此之外，我们在前面的小节中也遇到过“当A则B否则C”的执行方式。这种方式由一个条件去控制究竟是B被执行，还是C被执行？这种结构我们称为“选择结构”。除此之外，当我们要重复处理大量近似的操作时，使用顺序结构是非常麻烦的，所以这时候就有了“循环结构”。利用循环结构，我们可以用简洁的描述实现复杂的功能。这些算法中的抽象的控制结构，在C++中使用“选择语句”、“循环语句”来体现\footnote{顺序语句在哪里？其实除了这两种结构以外我们所逐行书写的代码都属于顺序语句。}。在这几种控制语句之中，还穿插着诸如“break”、“continue”等特殊的语句用来进行一些“精巧”的控制。
 
-上面所述的语句概念颇多，我将在接下来的Code部分为大家举例说明
+上面所述的语句概念颇多，我将在接下来的Code部分为大家举例说明。
 
 \subsection{Code}
 
+\lstinputlisting[language=C++,caption=语句,label=code:Statement]{codes/1-6/1-6.cpp}
+
 \subsection{Analyze}
+这段代码中出现了“选择语句”、“循环语句”以及一些直接控制语句(break、continue)等语句，下面是代码中的注解：
+\showremarks
+
+代码第7-15行展示了“条件语句”的使用。条件语句的形式主要是：
+
+\begin{lstlisting}[xleftmargin=10em,xrightmargin=10em]
+if(<布尔表达式A>)
+    <语句A>
+else
+    <语句B>
+\end{lstlisting}
+
+这段代码是非常简单的if语句的形式，甚至我们在前面已经见过。其中布尔表达式应该是一个能返回布尔值或者等同作用的表达式。例如返回true、false、0、1、10等等。当某个表达式成立，则跟他相配得那部分代码会被执行。如果仅仅是一个if不够，还可以用多个else if。语句中可以是单条语句，也可以是用大括号括起来的复合语句。，如同这样：
+
+\begin{lstlisting}[xleftmargin=6em,xrightmargin=6em]
+if(<布尔表达式A>)
+    <语句块A>
+else{
+    if(<布尔表达式B>)
+        <语句块B>
+    else{
+        if(<布尔表达式C>)
+            <语句块C>
+        else{
+            ...
+                ...
+        }
+    }
+}
+\end{lstlisting}
+
+上面这样的嵌套if语句执行流程如图：
+
+\begin{center}
+\includegraphics{fig/1-6/1_if_statement.png}
+\end{center}
+
+不难发现，这种写法非常复杂和臃肿，我们可以用下面的方法完全等效地代替：
+
+\begin{lstlisting}[xleftmargin=10em,xrightmargin=10em]
+if(<布尔表达式A>)
+    <语句块A>
+else if(<布尔表达式B>)
+    <语句块B>
+else if(<布尔表达式C>)
+    <语句块C>
+...
+	...
+else
+    <语句块Z>
+\end{lstlisting}
+
+上面的例子已经告诉我们，if语句的语句块中也是语句，也就是说可以再嵌套插入其他诸如循环、选择等语句。但要注意，当嵌套使用if语句时可能会产生括号匹配的问题。例如：
+
+\begin{lstlisting}[xleftmargin=10em,xrightmargin=10em]
+if(<布尔表达式A>)
+    if(<布尔表达式B>)
+        <语句块B>
+else
+    <语句块C>
+\end{lstlisting}
+
+在上面代码之中，出现了两个嵌套的if语句。如果语句块B和C中的内容都是没有大括号包围的单条语句，那么第4行的else究竟应该与哪个相匹配？在C++中规定，else跟在它上面与它最近的else相匹配。这个特性能够消除嵌套使用if语句的二义性。也就是说，即便根据缩进看起来第四行的else与第一行的if相配，但实际上它会去寻找上面离它最近的也就是第2行的if语句。
+
+这种二义性是由于使用“单条语句”而非“语句块”而导致的。所以作为初学者，如果还是不太习惯这条规则，可以将if语句中的语句块都用大括号括起来，形成“复合语句”。
+
+代码\ref{code:Statement}的第18行，出现了一个switch语句。这个语句又叫做“开关语句”。开关语句会寻找到一个入口，然后将入口以后的程序依次执行，直到执行完毕或者遇到break。开关语句的形式是这样的：
+
+\begin{lstlisting}[xleftmargin=10em,xrightmargin=10em]
+switch(<整型表达式>){
+    case <整型常量表达式A>:
+        <语句A>
+    case <整型常量表达式B>:
+        <语句B>
+    ...
+        ...
+    default:
+        <语句Z>
+}
+\end{lstlisting}
+
+我们曾在上面看到过连续的else-if语句，开关语句只是它的一种精简版。<整形表达式>将会被运算并且得到值，紧接着程序就会在后面的一组case的<整型常量表达式>中找到一个与之相等的常量。以此case作为入口，从该语句处连续执行，直到遇到break或者switch语句执行完毕。
+
+当在case的<整型常量表达式>中找不到相匹配的常量，则程序会以default作为入口。dafult是可以省略的，它的位置也是可以调换的。但倘若default出现在switch里的第一行，则后面的case也就失去意义，因为程序第一个找到的入口就是default。
+
+在代码\ref{code:Statement}的38行，介绍了一种循环语句——while语句。while语句的形式如：
+\begin{lstlisting}[xleftmargin=10em,xrightmargin=10em]
+while(<表达式>)
+    <语句>
+\end{lstlisting}
+
+其中的语句可以是单条语句、也可以是复合语句块。程序执行的流程是：计算表达式的值，如果为true则会执行语句，然后再次计算表达式的值，如果为真则执行语句....直到执行表达式时值为假，则跳出while循环。用图示来说明就是这个样子：
+
+\begin{center}
+\includegraphics{fig/1-6/2_while_statement.png}
+\end{center}
+
+在while循环中，我们通过括号内的表达式控制循环的进入。通常在循环之中要修改一些能够使表达式取值不同的值。只有表达式的值从true变为false，才能退出循环，否则程序将进入无休止的死循环。while比较适合循环次数无法预知的循环。
+
+除此之外在代码\ref{code:Statement}的第45行还出现了另一种形式的while循环——do-while循环。通常的while循环需要先计算表达式的值，再判断是否能进入循环。循环内的语句可能一次都不会被执行\footnote{因为第一次执行循环表达式时结果就为false}。当我们想要至少要让循环内容执行一次再进行判断，那么就需要用do-while循环了。
+
+do-while循环的形式如下：
+
+\begin{lstlisting}[xleftmargin=10em,xrightmargin=10em]
+do
+    <语句>
+while(<表达式>);
+\end{lstlisting}
+
+它的执行流程与while类似，只不过do后面的<语句>会被先执行一次，然后再由<表达式>的值判断下次是否要进入循环。它的执行流程如图：
+
+\begin{center}
+\includegraphics{fig/1-6/3_dowhile_statement.png}
+\end{center}
+
+代码\ref{code:Statement}的第52行，出现了另外一种循环语句——for循环。for循环实际上是一串复杂操作的集合体。for循环的形式如下：
+
+\begin{lstlisting}[xleftmargin=6em,xrightmargin=6em]
+for(<表达式A>;<表达式B>;<表达式C>)
+    <语句>
+\end{lstlisting}
+
+for循环的风格比较适用于\footnote{“适用于”不代表不能用于其他情况。但是这些都属于编程技巧的范畴，本章不过多阐释。}直观地描述循环次数可以预知的确定性的循环。在<表达式A>，<表达式B>，<表达式C>中，\emph{通常}都会包含用户定义的一个变量，该变量成为“循环变量”或“索引变量”。循环变量的定义和赋初值通常在<表达式A>中进行。<表达式B>的取值将决定这个for循环进行与否，如果该值为true，则循环继续，为false则终止。在这里通常让循环变量与一个“界”相比较。这个界能够很好地控制循环次数。<表达式C>则用来对循环变量进行修改，使得<表达式B>中的值能够产生变化。通常在这里给循环变量一个某步长的增量，用以控制循环。<语句>中的内容则成为是循环体。可以使任何类型的可执行语句，可以是包括多条语句的复合语句，甚至可以是空语句\footnote{这种没有循环体的循环可以在一些程序中用来延时、或者仅使用循环中三个表达式就能完成一些操作}。for循环复杂的执行流程可以用下图简单地表示：
+
+\begin{center}
+\includegraphics{fig/1-6/4_for_statement.png}
+\end{center}
+
+程序首先执行一次<表达式A>，由于它只会被执行一次的特性，所以通常用来初始化变量。然后进入一个类似while循环的结构，以<表达式B>作为循环控制，不断地执行<语句>并重新计算<表达式C>。知道<表达式B>的值不在满足，则跳出循环。
+
+代码\ref{code:Statement}第58处开始的for循环中，使用了break和continue语句。break的作用是立即跳出当前的循环，开始执行循环之后的内容。而continue的功能是跳过本次循环体内语句的执行，但循环体外（<表达式C>）不受影响，还是会执行。
 
 \subsection{Result}
+让我们看看上面代码执行之后的结果吧：
+\\[\intextsep] 
+  \begin{minipage}{\textwidth} 
+    \centering 
+    \includegraphics{codes/1-6/result.png}
+    \figcaption{语句} 
+    \label{fig:code-1-6-result} 
+  \end{minipage}
+\\[\intextsep]
+
+程序首先进入if语句，由于a=10<11，所以会输出“a is less than b”。其他并列的几个else将不会进入。
+
+在后面的switch中，程序判断变量c中的内容。当程序发现c的内容与第28行的分号匹配，所以程序的入口是第29行。输出“这是一个分号”，然后在break的作用下跳出整个switch语句。
+
+在第38行，程序使用while循环进行1至100的求和运算。使用变量d作为控制变量和计数器，sum\_d每次在原有基础上增加d，同时使d自加。当d达到100时跳出循环并输出结果。
+
+在第45行，程序使用do-whiel语句输出了从a到z的26个字母，每次变量e+1，其ascii对应的字母就会增长一个。
+
+紧接着第52行是使用for循环进行1至100求和。其实现功能与while循环所实现的完全一致，但写法各有差异。
+
+第58行的for循环中使用了break和continue。程序首先定义i=1，并且发现控制条件为true，程序会进入循环，判断当i=50时跳出循环\footnote{使用这种方法控制循环次数非常简陋，此处只为作为例子，请大家不要学习这种风格}，此时整个循环过程结束，否则继续执行。程序又判断i是否是偶数如果是偶数则执行continue语句，跳过本次循环体的剩余内容，也就是不执行第63行的输入。如果前面两个if都不满足，则说明i此时一定是一个小于50的奇数，并将它输出。
+
+在本节中，我们主要介绍了语句的概念。平时我们以此编写的语句罗列在一起就是顺序结构，除此之外还可以有选择结构和循环结构。在这几种结构的帮衬下，我们至此可以实现很多很多有趣的算法。
 
 \subsection{Try}
+本节内容比较多，所以Try中的内容也会比较多，希望大家能够看清每一个要求、认真编写好每一段程序。
+\begin{description}
+	\item[Try 1]编写一个问候程序，由用户输入当前小时（24）时制。输出问候语（如早上好、中午好等）。让这个程序直到关闭之前能够不断运行。
+	\item[Try 2]统计不同种类字符的字数：让用户不断输入内容（直到输入#号终止），并且统计用户曾经输入不同类型字符（数字、小写字母、大写字母、其他符号）的个数。
+	\item[Try 3]编写一个程序，让用户输入一个数n，求从1到n之间所有整数求和。
+	\item[Try 4]编写程序输出一个由“*”组成的，长10，宽20的矩形。
+	\item[Try 5]代码：“for(int i=0;i<10;i++)cout<<'!'<<endl;”其中一共会输出多少个“！”？
+	\item[Try 6]使用循环计算斐波那契数列的第20项。（斐波那契数列是指f(n)=f(n-1)+f(n-2),即从第三项起，每项值是其前两项和，第一项和第二项是1。）
+	\item[Try 7]编写一个5分制打分系统。根据用户的得分输出相应等级。例如输入5分，输出：优秀；输入0分，输出“非常差”。
+	\item[Try 8]找到1-100000中所有3的倍数。并且统计这些数有几个。
+\end{description}
 
